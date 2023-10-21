@@ -137,7 +137,7 @@ odszukaj sekcję containerd.runtimes.runc.option, zmień wartość na true
 [install-containerd.sh](../02-build-cluster/install-containerd.sh) !!!
 
 skrypt rozwiązuje wszystkie problemy od pkt.8
---- utwórz ec2, a następnie uruchom skrypt --- 
+--- utwórz ec2, a następnie uruchom skrypt.
 
 zainstaluuj kubeadm na każdym z nodów (master/worker)
 
@@ -188,23 +188,30 @@ pobierz klucz publiczny dla repozytorium kubernetesa
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 ```
 
-Dodaj repozytoriu do 'apt'
+Dodaj repozytoriu do listy repozytoriów menadżera pakietów (apt).
 
 ```bash
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 ```
 
-zktualizuj 'index apt' i zainstaluj kubelet kubeadm kubectl
+Zktualizuj 'index apt' i zainstaluj kubelet kubeadm kubectl
+instalowane będą w najnowszej, stabilnej, tej samej wersji.
+
 
 ```bash
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
+```
+
+Zablokuj automatyczna aktualizację pakietów klastra
+```bash
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-
-
-
-
-
-
+Jeśłi z jakiś pów należy zainstalować starszą wersje pakierów
+```bash
+sudo apt-get update
+apt-cache medison kubeadm
+sudo apt-get install -y kubelet=<ver> kubeadm=<ver> kubectl=<ver>
+sudo apt-mark hold kubelet kubeadm kubectl
+```
