@@ -218,3 +218,15 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 skożystaj z skryptu aby automatycznie zainstalować komponenty [install-k8s-components.sh](../02-build-cluster/install-k8s-components.sh)
 
+11. inicjalizacja master node
+
+Wymagane ```sudo```. Komenda odwołuje sie do katalogu ```/etc/kubernetes/```. Uzytkowik root ma prawo zapisu w katalogu.
+
+```bash
+sudo kubeadm init
+```
+
+```C
+/etc/kubernetes/admin.comf = ./kube/config
+```
+
