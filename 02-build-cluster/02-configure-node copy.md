@@ -137,3 +137,13 @@ użyj skryptu aby zainstalować containerD pomijajac kroki powużej
 [install-containerd.sh](../02-build-cluster/install-containerd.sh)
 skrypt rozwiązuje wszystkie problemy od pkt.8
 
+---tzn. utwórz ec2, a następnie uruchom skrypt--- 
+
+zainstaluuj kubeadm na każdym z nodów (master/worker)
+
+kubeadm init - podnosi range noda do mastere (control plain)
+komenda wykonywana jest tylko raz i na serwerze który ma być masterem.
+komenda tworzy /etc/kuberentes. Wewnąrz folderu tworzone sa katalogi i pliki certyfikatór, katalo i plik manifestu k8s, ...
+
+![kubeadm](../02-build-cluster/kubeadm.png)
+
