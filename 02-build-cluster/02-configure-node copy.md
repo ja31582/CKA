@@ -139,7 +139,7 @@ odszukaj sekcję containerd.runtimes.runc.option, zmień wartość na true
 skrypt rozwiązuje wszystkie problemy od pkt.8
 --- utwórz ec2, a następnie uruchom skrypt.
 
-zainstaluuj kubeadm na każdym z nodów (master/worker)
+10. zainstaluuj kubeadm na każdym z nodów (master/worker)
 
 kubeadm init - podnosi range noda do mastere (control plain)
 komenda wykonywana jest tylko raz i na serwerze który ma być masterem.
@@ -215,3 +215,6 @@ apt-cache medison kubeadm
 sudo apt-get install -y kubelet=<ver> kubeadm=<ver> kubectl=<ver>
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
+
+skożystaj z skryptu aby automatycznie zainstalować komponenty [install-k8s-components.sh](../02-build-cluster/install-k8s-components.sh)
+
