@@ -135,9 +135,9 @@ odszukaj sekcję containerd.runtimes.runc.option, zmień wartość na true
 ```
 !!! Użyj skryptu aby zainstalować containerD pomijajac kroki powużej 
 [install-containerd.sh](../02-build-cluster/install-containerd.sh) !!!
-skrypt rozwiązuje wszystkie problemy od pkt.8
 
----tzn. utwórz ec2, a następnie uruchom skrypt--- 
+skrypt rozwiązuje wszystkie problemy od pkt.8
+--- utwórz ec2, a następnie uruchom skrypt --- 
 
 zainstaluuj kubeadm na każdym z nodów (master/worker)
 
