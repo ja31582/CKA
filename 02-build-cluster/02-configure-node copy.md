@@ -133,8 +133,8 @@ odszukaj sekcję containerd.runtimes.runc.option, zmień wartość na true
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
-użyj skryptu aby zainstalować containerD pomijajac kroki powużej 
-[install-containerd.sh](../02-build-cluster/install-containerd.sh)
+!!! Użyj skryptu aby zainstalować containerD pomijajac kroki powużej 
+[install-containerd.sh](../02-build-cluster/install-containerd.sh) !!!
 skrypt rozwiązuje wszystkie problemy od pkt.8
 
 ---tzn. utwórz ec2, a następnie uruchom skrypt--- 
@@ -146,7 +146,6 @@ komenda wykonywana jest tylko raz i na serwerze który ma być masterem.
 komenda tworzy /etc/kuberentes. Wewnąrz folderu tworzone sa katalogi i pliki certyfikatór, katalo i plik manifestu k8s, ...
 
 ![kubeadm](../02-build-cluster/kubeadm.png)
-
 ---tzn. utwórz ec2, a następnie uruchom skrypt--- 
 
 zainstaluuj kubeadm na każdym z nodów (master/worker)
@@ -154,7 +153,7 @@ zainstaluuj kubeadm na każdym z nodów (master/worker)
 kubeadm init - podnosi range noda do mastera (control plain)
 komenda wykonywana jest tylko raz, na serwerze, który ma być masterem.
 komenda tworzy:
-  - /etc/kuberentes/ -g głowny katalog klastra
+  - /etc/kuberentes/ -głowny katalog klastra
   - /etc/kubernetes/ca/ - katalog w którym przechowywane będą certyfikaty
   - /etc/kubernetes/manifest/ - znajdziesz tutaj mnifest klastra
     kublet odnajduje plik manifestu i uruchamia pod z suffixem nazwy serwera.
@@ -169,7 +168,8 @@ Przed zainicjowaniem master nose należy zainstalować kilka narzędzi ułatwiaj
 
 Przejdz do strony  https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
 
-zainstaluj pakiety za pomoca których stworzysz k8s klaster
+
+Zaktualizuj insex apt i zainstaluj pakiety za pomoca których stworzysz k8s klaster
 
 ```bash
 sudo apt-get update
