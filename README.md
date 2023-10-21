@@ -1,1 +1,2 @@
-# CKA
+
+prtwatne notatki z kursu

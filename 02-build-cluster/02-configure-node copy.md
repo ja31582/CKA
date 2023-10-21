@@ -147,3 +147,64 @@ komenda tworzy /etc/kuberentes. Wewnąrz folderu tworzone sa katalogi i pliki ce
 
 ![kubeadm](../02-build-cluster/kubeadm.png)
 
+---tzn. utwórz ec2, a następnie uruchom skrypt--- 
+
+zainstaluuj kubeadm na każdym z nodów (master/worker)
+
+kubeadm init - podnosi range noda do mastera (control plain)
+komenda wykonywana jest tylko raz, na serwerze, który ma być masterem.
+komenda tworzy:
+  - /etc/kuberentes/ -g głowny katalog klastra
+  - /etc/kubernetes/ca/ - katalog w którym przechowywane będą certyfikaty
+  - /etc/kubernetes/manifest/ - znajdziesz tutaj mnifest klastra
+    kublet odnajduje plik manifestu i uruchamia pod z suffixem nazwy serwera.
+    na podstawie pliku manifest, kublet odpytuje containerD runtime o obrazy aplikacji jakie maja zostać zaimplementowane w kalastrze a następne tworzone są wymagane kontenery.
+
+![kubeadm](../02-build-cluster/kubeadm.png)
+
+Przed zainicjowaniem master nose należy zainstalować kilka narzędzi ułatwiających zarządzanie klasterem.
+## kubet, kubectl , bubeadm muszą być w tej samej wersji
+
+![3k](../02-build-cluster/3k.png)
+
+Przejdz do strony  https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
+
+zainstaluj pakiety za pomoca których stworzysz k8s klaster
+
+```bash
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+```
+
+utwórz katalog keyrings dla apt
+
+```bash
+sudo mkdir -m 755 /etc/apt/keyrings
+```
+
+pobierz klucz publiczny dla repozytorium kubernetesa
+
+```bash
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+```
+
+Dodaj repozytoriu do 'apt'
+
+```bash
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+
+zktualizuj 'index apt' i zainstaluj kubelet kubeadm kubectl
+
+```bash
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+```
+
+
+
+
+
+
+
