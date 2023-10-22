@@ -1,11 +1,11 @@
-```yaml
-title: "Master Node"
-linkTitle: "Master Node"
+---
+title: "master node"
+linkTitle: "master node"
 weight: 11
 version: 1.0
 type: "docs"
 description: >
-```
+---
 
 ![master](../02-architecture/master.png)
 

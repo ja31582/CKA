@@ -46,9 +46,9 @@ posiadając różne ns możesz limitować zasoby cpu/ram/storage dla kazdego ns.
 Jeżeżeki dwa projekty mają tą sama referencję, kozystają z tej samej bazy danych to i tak każdy z nich musi mieć zdeklarowany osobny ConfigMap, Secret. Prrojekty moga mieć wspólny service (mysql-service).
 Jeśli baza danych znajduje sie w osobnym NS to w "db_url" można podać NS zamiast nazwy bazy.
 
-![shareService](../03-kubectl-configfile/shareService.png)
+![shareService](../02-architecture/shareService.png)
 
-VOL NODE - są zasoby które nie sa grupowane w NS, żyją globalnie w klastrze k8s, nie można ich izolować
+VOL & NODE - są zasoby które nie sa grupowane w NS, żyją globalnie w klastrze k8s, nie można ich izolować
 
 Aby wilistować komponenty, które nie są powiązane z NS uzyj komendy
 
