@@ -1,17 +1,24 @@
+---
+title: "kubeconfig"
+linkTitle: "kubeconfig"
+weight: 11
+version: 1.0
+type: "docs"
+description: >
+---
 
-
-aby połaczyć się z klastrem użyj komendy
+Aby połaczyć się z klastrem użyj komendy
 ```bash
 sudo kubectl get no --kubeconfig /etc/kubernetes/admin.conf
 ```
 
-możesz u żyć alternatywy, działa tylko dla sesji
+Możesz u żyć alternatywy, działa tylko dla sesji
 ```bash
 sudo -i
 export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
-możesz przekopiowac plik do lokalizacji ~/.kube/config
+Możesz przekopiowac plik do lokalizacji ~/.kube/config
 ```bash
 sudo mkdir ~/.kube
 sudo cp /etc/kubernetes/admin.conf ~/.kube/config
@@ -19,11 +26,8 @@ sudo chown $(id --user):$(id --group) ~/.kube/config
 ```
 
 
-
-```bash
 /etc/kubernetes/admin.conf
-
----
+```bash
 apiVersion: v1
 clusters:
 - cluster:
