@@ -10,7 +10,7 @@ description: >
 Istnieje dwa rodzaje nodów.
 Master node i Worker node. Kazdy z nich pełni inna funkcje w klastrze
 
-![nods](../02-architecture/architecture.png)
+![nods](../02-architecture/img/architecture.png)
 
 ## Worker node
 
@@ -33,4 +33,4 @@ rozmawia z docketem w celu zaplanowania kontenerów. Odpowiedzialny za zarządza
 
 3. kube proxy - odpowiedzialny za komunikację (LB-service-pod). odpowiedzialny za przekazywanie zapytań z komponentu Service do poda
 
-![process](../02-architecture/process.png)
+![process](../02-architecture/img/process.png)

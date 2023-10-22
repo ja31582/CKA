@@ -41,12 +41,12 @@ Może się zdażyć że kilka teamów spadnie na pomysł pracy na deefoultowym n
 Używanie pre-production, service, support and production environment na tym samym klastrze, należy rozróznić te środowiska (rozwiązanie zwane Blue/Green deploymnt).
 posiadając różne ns możesz limitować zasoby cpu/ram/storage dla kazdego ns.
 
-![ns](ns.png)
+![ns](../02-architecture/img/ns.png)
 
 Jeżeżeki dwa projekty mają tą sama referencję, kozystają z tej samej bazy danych to i tak każdy z nich musi mieć zdeklarowany osobny ConfigMap, Secret. Prrojekty moga mieć wspólny service (mysql-service).
 Jeśli baza danych znajduje sie w osobnym NS to w "db_url" można podać NS zamiast nazwy bazy.
 
-![shareService](../02-architecture/shareService.png)
+![shareService](../02-architecture/img/shareService.png)
 
 VOL & NODE - są zasoby które nie sa grupowane w NS, żyją globalnie w klastrze k8s, nie można ich izolować
 
