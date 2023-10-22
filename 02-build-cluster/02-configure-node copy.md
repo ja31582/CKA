@@ -229,4 +229,6 @@ sudo kubeadm init
 ```C
 /etc/kubernetes/admin.comf = ./kube/config
 ```
+sprawdź [kubeconfig](../01-core-concepts/02-architecture/03-kubeconfig.md)
+
 

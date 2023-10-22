@@ -12,7 +12,11 @@ description: >
 Istnieje cztery procesy działające na każdym master nodezie
 
 1. api server -  Jest jak cluster GW. Punkt wejściowy do klastra.
-Jeśli posiadam na swoim komputerze odpowiedni certyfikat (./kube/config) i mam zainstalowane narzędzie kubectl, to poprzez api server moge połączyć sie z kalastrem.
+Jeśli posiadam na swoim komputerze odpowiedni certyfikat generowany przez kubeadm (./kube/config) i mam zainstalowane narzędzie kubectl, to poprzez api server moge administrować klastrem.
+
+```bash
+./kube/config = /etc/kubernetes/admin.conf
+```
    
    Jest to komponent Kubernetes, który odpowiada za uwierzytelnianie żądań przychodzących do klastra. To główny punkt wejścia, przez który użytkownicy oraz różne komponenty komunikują się z klastrem.
    
