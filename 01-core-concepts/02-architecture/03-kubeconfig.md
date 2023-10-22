@@ -1,4 +1,4 @@
-/etc/kubernetes/admin.conf
+
 
 aby połaczyć się z klastrem użyj komendy
 ```bash
@@ -20,6 +20,8 @@ sudo chown $(id --user):$(id --group) ~/.kube/config
 
 
 
+```bash
+/etc/kubernetes/admin.conf
 
 ---
 apiVersion: v1
@@ -41,3 +43,4 @@ users:
   user:                                     
     client-certificate-data: xxx            # poświadczenia użytkownika - klucz Base64-encoded 
     client-key-data: xxx                    # poświadczenia użytkownika - cert Base64-encoded 
+```
