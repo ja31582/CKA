@@ -1,0 +1,7 @@
+apiVersion: v1
+kaind: ConfigMap
+metadate:
+  name: mysql-confgmap
+  namespace: dj-test
+data:
+  db_url: mysql_service.database

@@ -7,24 +7,6 @@ type: "docs"
 description: >
 ---
 
-Aby połaczyć się z klastrem użyj komendy
-```bash
-sudo kubectl get no --kubeconfig /etc/kubernetes/admin.conf
-```
-
-Możesz u żyć alternatywy, działa tylko dla sesji
-```bash
-sudo -i
-export KUBECONFIG=/etc/kubernetes/admin.conf
-```
-
-Możesz przekopiowac plik do lokalizacji ~/.kube/config
-```bash
-sudo mkdir ~/.kube
-sudo cp /etc/kubernetes/admin.conf ~/.kube/config
-sudo chown $(id --user):$(id --group) ~/.kube/config
-```
-
 
 /etc/kubernetes/admin.conf
 ```bash
@@ -47,4 +29,22 @@ users:
   user:                                     
     client-certificate-data: xxx            # poświadczenia użytkownika - klucz Base64-encoded 
     client-key-data: xxx                    # poświadczenia użytkownika - cert Base64-encoded 
+```
+
+Aby połaczyć się z klastrem użyj komendy
+```bash
+sudo kubectl get no --kubeconfig /etc/kubernetes/admin.conf
+```
+
+Możesz u żyć alternatywy, działa tylko dla sesji
+```bash
+sudo -i
+export KUBECONFIG=/etc/kubernetes/admin.conf
+```
+
+Możesz przekopiowac plik do lokalizacji ~/.kube/config
+```bash
+sudo mkdir ~/.kube
+sudo cp /etc/kubernetes/admin.conf ~/.kube/config
+sudo chown $(id --user):$(id --group) ~/.kube/config
 ```
