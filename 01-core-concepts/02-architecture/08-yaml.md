@@ -10,3 +10,4 @@ description: >
 
 ## YAML
 
+![yamp](../02-architecture/img/yaml.png)

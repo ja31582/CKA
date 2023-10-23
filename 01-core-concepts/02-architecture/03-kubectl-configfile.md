@@ -43,6 +43,6 @@ kubectl delete -f *.yaml
 
 # podsumowanie
 
-![i-d](../03-kubectl-configfile/imperative-declarative.png)
+![i-d](../02-architecture/img/imperative-declarative.png)
 
-![i-d](../03-kubectl-configfile/imperative-declarative1.png)
+![i-d](../02-architecture/img/imperative-declarative1.png)

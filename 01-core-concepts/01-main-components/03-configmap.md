@@ -9,7 +9,7 @@ description: >
 
 ### cm
 
-![cm](../03-configmap/cm$secret.png)
+![cm](../01-main-components/img/cm$secret.png)
 
 Zewętrzna konfiguracja aplikacji
 

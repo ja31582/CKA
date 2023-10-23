@@ -9,7 +9,7 @@ description: >
 
 ### svc
 
-![](../02-service/svc.png)
+![svc](../01-main-components/img//svc.png)
 
 k8s dostercza virtual network
 
@@ -34,6 +34,6 @@ Internal Service - dla połaczeń, wewnąrz klastra
 
 Service jest także load ballancerem, przejmuje zapytanie od LB i przekazuje do poda który jest w tym czasie mniej zajęty.
 
-![lb](../02-service/service.png)
+![lb](../01-main-components/img/service.png)
 
 Tworząc taką replikę muszę zdefiniować blueprint dla podów w której wskazuje jak wiele replik poda ma istnieć  --> [deployment](../04-deployment/deployment.md)

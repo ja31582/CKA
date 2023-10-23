@@ -12,19 +12,19 @@ z racj tego iż jest to plik YAML i wszelkie przesunięcia nawet jednej spracji 
 
 Istniejeą różne rodzaje wersji dla róznych kmponentów.
 
-![ver](../04-configuration-file/ver.png)
+![ver](../02-architecture/img/ver.png)
 
 Deklaracja co chesz wdrożyć, deployment czy service
 
-![declarate](../04-configuration-file/declarate.png)
+![declarate](../02-architecture/img/declarate.png)
 
 1. metadata
 
-![metadata](../04-configuration-file/metadata.png)
+![metadata](../02-architecture/img/metadata.png)
 
 2. specyfication - atrybuty będą specyficzne dla każdego z komponentu (deployment, dervice, ..)
 
-![spec](../04-configuration-file/spec.png)
+![spec](../02-architecture/img/spec.png)
 
 3. Status - jest automatyczne gendrowany i dodawany przez k8s
    
@@ -32,6 +32,6 @@ Deklaracja co chesz wdrożyć, deployment czy service
    
    Specyfication może zawierać informacje o 2 replikach a w satus może wskazywać że istnieje tylko jedna. Znaczy to, że jest jakiś problem i k8s będzie doążył do tego aby były 2 repliki - jak w spec.
    
-   Informacje dotyczące statusu przekazywane sa prze [ETCD](../02-architecture/02-master_.md) 
+   Informacje dotyczące statusu przekazywane sa prze [ETCD](../02-architecture/img/02-master_.md) 
 
 Dobrą proktyką jest przechowywanie Configuration File w Git lub Infrastructure as a Code

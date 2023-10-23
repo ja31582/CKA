@@ -9,7 +9,7 @@ description: >
 
 ### pod
 
-![pod](../01-pod/pod1.png)
+![pod](../01-main-components/img/pod1.png)
 
 Pod jest warstwą abstrakcji na szczycie kontenerów.
 
