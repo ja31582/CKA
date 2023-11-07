@@ -19,8 +19,13 @@ gdy padnie kontener w podzie to nowy konterner dostaje ten sam ip adres (wewnąt
 gdy padnie pod nadawane są nowe adresu dla wpółpracujących ze sobą kontenerów.
 
 CNI - container networking interface (basicly netwok or inter pod commmunication)
-jak pddy komunokują się wzajemnie ze sobą
+jak pddy komunokują się wzajemnie ze sobą.
+jest zbiorem ról i definicji sieciowych.
 
 ![CNI](../02-architecture/img/image-1.png)
 
 Kubernetes nie dostarcza rozwiązania sieciowego w podstawie, jestś zobliowrany do wdrożenie 'sieci' we własnym zakresie.
+
+CNI to ten sam koncept co CRI (container rntime interface)
+
+![Alt text](../02-architecture/image-3.png)
