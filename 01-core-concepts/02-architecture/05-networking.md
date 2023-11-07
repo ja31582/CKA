@@ -28,4 +28,4 @@ Kubernetes nie dostarcza rozwiązania sieciowego w podstawie, jestś zobliowrany
 
 CNI to ten sam koncept co CRI (container rntime interface)
 
-![Alt text](../02-architecture/image-3.png)
+![Alt text](../02-architecture/img/image-3.png)
