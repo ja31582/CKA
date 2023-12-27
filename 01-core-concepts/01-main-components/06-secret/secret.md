@@ -15,6 +15,4 @@ Secret jest takim samym kompnentem jak ConfigMap ale słuzy do przechowywania da
 
 Dane przechowywane w postaci **based64**
 
-ale...
-
 ![read](../06-secret/secret.png)
