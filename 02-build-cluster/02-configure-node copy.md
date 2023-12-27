@@ -230,3 +230,4 @@ sudo kubeadm init
 sprawdź [kubeconfig](../01-core-concepts/02-architecture/03-kubeconfig.md)
 
 
+do instalacji został wybrany provider [weaveNET](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
