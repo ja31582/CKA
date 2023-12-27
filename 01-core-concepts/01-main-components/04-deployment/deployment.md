@@ -7,7 +7,7 @@ type: "docs"
 description: >
 ---
 
-### deployment
+### deploy
 
 ![deploy](../04-deployment/deploy&sts.png)
 

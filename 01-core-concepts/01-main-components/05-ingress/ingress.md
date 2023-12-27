@@ -25,6 +25,6 @@ Node:         ip-124-89-101-2.eu-west-3.compute.internal/124.89.101.2
 Port:         8080/TCP
 ```
 
-Dla publikowania aplikacji dla klienta, wymagany był by protoków https oraz nazwa domenowa i to jest zadanie dla ingress
+Dla publikowania aplikacji dla klienta, wymagany był by protoków https oraz nazwa domenowa i to jest zadanie dla ingress.
 
 Ingress -  forwarding dla service.
