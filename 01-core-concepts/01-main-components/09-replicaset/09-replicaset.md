@@ -11,8 +11,6 @@ description: >
 
 ![replica](../09-replicaset/replica.png)
 
-
-
 sprawdź:
-Deployment
-StatefullSet
+ - Deployment
+ - StatefullSet
