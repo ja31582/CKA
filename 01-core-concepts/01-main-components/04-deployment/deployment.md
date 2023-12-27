@@ -7,17 +7,15 @@ type: "docs"
 description: >
 ---
 
-### deploy
+### deployment
 
 ![deploy](../04-deployment/deploy&sts.png)
 
+Deployment jest warstwą abstrakcji na szczycie podów, wchodzi w interakcję z podem, jako replikacja konfiguracja poda.
 
+Deployment to swego rodzaju plan (blueprint) dla podów "my-app".
 
-Deployment jest warstwą abstrakcji na szczycie podów, wchodzi w interakcję z podem, jego replikacja konfiguracja poda.
-
-Deployment to swego rodzaju plan (blueprint) dla podów "my-app"
-
-przechowuje informacje o replice danego poda 
+Przechowuje informacje o replice danego poda.
 
 Pody bazodanowe nie moga być replikowane podprzez deployment. (data base is state)
 
