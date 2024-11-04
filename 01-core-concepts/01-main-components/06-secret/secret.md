@@ -23,10 +23,8 @@ Dane mona w atry sposób zdeszyfrować
 echo "cGFzc3dvcmQ=" | base64 --decode
 ```
 
-
 Jeśli masz wiele wartości w Secret, możesz szybko zdekodować wszystkie dane przy użyciu skryptu:
 
 ```bash
-kubectl get secret <nazwa-secretu> -n <nazwa-namespace> -o jsonpath='{.data}' | jq -r 'to_entries[] | "\(.key): \(.value | @base64d)"'
-
+kubectl get secret -n <namespace> <secret> -o jsonpath='{.data}' | jq -r 'to_entries[] | "\(.key): \(.value | @base64d)"'
 ```
