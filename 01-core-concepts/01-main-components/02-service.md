@@ -24,8 +24,9 @@ Jeśli pod zostanie usunięty/zrestartowany to nowy pod otrzyma nowy adres IP al
 sprawdź:
 
 ```bash
-kubectl get service -n namespace`
-kubectl describe pod -n namespace cochise-xxxxxxxxx-xxxxx |grep IP:`
+kubectl get service -n namespace
+kubectl get svc -n namespace
+kubectl describe pod -n namespace cochise-xxxxxxxxx-xxxxx |grep IP:
 ```
 
 External Service - pozwala na dostęp do applikacji z zewnątrz klastrka k8s. Otwiera komunikację z zewnętrznych żródeł.
@@ -38,9 +39,45 @@ Service jest także load ballancerem, przejmuje zapytanie od LB i przekazuje do 
 
 Tworząc taką replikę muszę zdefiniować blueprint dla podów, w której wskazuje jak wiele replik poda ma istnieć  --> [deployment](../04-deployment/deployment.md)
 
-## NodePort
+## Cluster IP - internal service
 
-Wystawia na sernątrz usługę
+Tworzenie svc z lini poleceń
+```bash
+kubectl create service clusterip nginx-run --namespace $namespace --tcp 8080:80 --dry-run=client -o yaml > $service_cip.yaml
+```
+pod jest dostepny przes inne pody w dany klastrze
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nginx-run
+  name: nginx-run
+  namespace: www
+spec:
+  ports:
+  - name: 8080-80
+    port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx-run
+  type: ClusterIP # jeśli w spec: nie ma typu svc to jest to ClusterIP (default)
+status:
+  loadBalancer: {}
+```
+
+
+## NodePort - external service
+
+Tworzenie svc z lini poleceń
+```bash
+kubectl create service nodeport nginx-run --namespace www --tcp 8080:80 --node-port=30001  --dry-run=client -o yaml > $service_np.yaml
+```
+
+Wystawia na zewnątrz usługę
 
 nodePort: 30001 - Port, na którym usługa będzie dostępna na węzłach klastra.
 port: 8080 - Port, na którym usługa będzie dostępna wewnętrznie w klastrze.
@@ -63,17 +100,14 @@ spec:
     port: 8080
     protocol: TCP
     targetPort: 80
-#  - name: 9090-90
-#    nodePort: 30080
-#    port: 9090
-#    protocol: TCP
-#    targetPort: 90
   selector:
     app: nginx-run
   type: NodePort
 status:
   loadBalancer: {}
 ```
+
+![NodePort](nodePort.png)
 
 ## LoadBallancer
 
