@@ -28,3 +28,5 @@ Jeśli masz wiele wartości w Secret, możesz szybko zdekodować wszystkie dane 
 ```bash
 kubectl get secret -n <namespace> <secret> -o jsonpath='{.data}' | jq -r 'to_entries[] | "\(.key): \(.value | @base64d)"'
 ```
+
+Dane secretu są łatwe do zdekodowania, dla tego hasła powinny być przechowywanie w zewnętrznym menadżerze kluczy (KMS, Vault).
