@@ -27,4 +27,6 @@ Port:         8080/TCP
 
 Dla publikowania aplikacji dla klienta, wymagany był by protoków https oraz nazwa domenowa i to jest zadanie dla ingress.
 
-Ingress -  forwarding dla service.
+Ingress -  forwarding dla serwisów, pozwala na konfigurecję routingu dla każdego z servisu, umożliwia bezpieczne połaczenie do aplikacji (https)
+
+
