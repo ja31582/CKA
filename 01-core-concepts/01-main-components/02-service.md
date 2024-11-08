@@ -111,7 +111,7 @@ status:
 
 ## LoadBallancer
 
-Teoretycznie po za typem nie różni sie niczym innym ale w przypadku LB andawany jest publiczny adres ip dla każdego SVC.
+Teoretycznie po za typem nie różni się niczym innym, ale w przypadku LB nadawany jest publiczny adres ip dla każdego SVC.
 LB dziali ruch pomiędzy nody, na których deployment uruchomił pody.
 
 ![lb](../01-main-components/lb.png)
