@@ -68,7 +68,7 @@ spec:
     targetPort: 80
   selector:
     app: nginx-run
-  type: ClusterIP # jeśli w spec: nie ma typu svc to jest to ClusterIP (default)
+  type: ClusterIP # jeśli nie ma linii dotyczącej typu serwiu to jest to ClusterIP (default)
 status:
   loadBalancer: {}
 ```
