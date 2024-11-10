@@ -87,3 +87,18 @@ Do spec należ wstawić sekcje tls i utworzyć secret w którym kontent będzie 
 ![alt text](image-9.png)
 
 ![alt text](image-10.png)
+
+---
+#### insrtalacja ingess-nginx
+
+URL: https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/README.md
+
+```sh
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install ingress-nginx ingress-nginx/ingress-nginx
+```
+
+![alt text](image-12.png)
+![alt text](image-11.png)
+![alt text](image-13.png)
