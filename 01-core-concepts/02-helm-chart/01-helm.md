@@ -7,4 +7,7 @@ type: "docs"
 description: >
 ---
 
-![components](../01-core-concepts/components.png)
+## Helm
+package managed for kubernetes, easy way to find,share, and use softfare built for ```k8s```
+
+![components](components.png)

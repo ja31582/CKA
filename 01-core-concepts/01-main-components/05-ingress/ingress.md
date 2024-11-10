@@ -11,14 +11,17 @@ description: >
 
 ![ing](../05-ingress/ing.png)
 
-Plik ingres może zostać stwożon z użyciem CL
+Plik ingres może zostać stwożon z użyciem CL, ale wcześniej należy zainstalować ingress-controller, który umożliwi tworzenie plików i przekierowanie zapytń do wewnętrznych serwisów.
+
 ```bash
 kubectl create ingress nginx-ingress \ 
 --rule="my-app.com/*=nginx-service:8080" --namespace=www \ 
 --dry-run=client -o yaml > www-ing.yaml
 ```
 
-Ingress przekazuje zapytaia ClusterIP. W takim razie wszystkie dane (nazwa serwisu i port zawate w ClusterIP muszą się znaleźć w Ingress)
+Ingress Controller pełni kluczową rolę, zarządzając ruchem zewnętrznym i kierując go do zasobów wewnątrz klastra na podstawie konfiguracji Ingress. Ingress Controller działa jako „brama” dla aplikacji i usług w klastrze, umożliwiając dostęp z zewnątrz poprzez domeny, reguły routingu, zabezpieczenia (TLS), oraz inne funkcje, które można skonfigurować na poziomie zasobu Ingress.
+
+Ingress przekazuje zapytaia do ClusterIP. W takim razie wszystkie dane (nazwa serwisu i port) zawate w ClusterIP muszą się znaleźć w Ingress.
 
 ![ingres](../05-ingress/ingres.png)
 
@@ -29,7 +32,7 @@ Ingress przekazuje zapytaia ClusterIP. W takim razie wszystkie dane (nazwa serwi
 | 7-18    | routing rules    |
 | 9 | adres domeny (to co jest wpisywane w url). To powinien być entry point na zwnąrz klastra, bądź jeden z nodów, na którym zzlokalizowana jest aplikacja|  
 | 13-16 | adres domen przekazywany jest do wewnętrzenego serwisu |
-| 17-18 | to co wpisywane jest po domenie (np. http://my-app.com/```jano```)|
+| 17-18 | to co wpisywane jest po domenie (np. http://my-app.com/-=jano=-)|
 | 10 | nie ma to nic wspólnego, że aplikacja działającą na porcie 80. Odnosi się do nadchodzącego pytania, które zostaje przekazane do wewnętrznego serwisu |
 |
 
@@ -48,7 +51,7 @@ Numer portu powinien być numerem portu wewnęrznego serwisu
 ![alt text](image-5.png)
 
 Można publikować aplikację podając adres noda, na którym znajduje się obecnie pod   ```my-app``` wraz z portem.
-Przy czym jest to dobre rozwiązanie dla samego testowania palikacji.
+Przy czym jest to dobre rozwiązanie jedynie dla samego testowania palikacji.
 
 ```bash
 kubectl describe pod -n namespace cochise-xxxxxxxxx-xxxxx |grep 'Node:\|Port:'`
@@ -63,4 +66,24 @@ Dla publikowania aplikacji dla klienta, wymagany był by protoków https oraz na
 
 Ingress -  forwarding dla serwisów, pozwala na konfigurecję routingu dla każdego z servisu, umożliwia bezpieczne połaczenie do aplikacji (https)
 
+## Multi paths
+Czyli jedna domena ale wiele serwisów, które na niej dzialają. 
 
+https://my-app.com/analytic
+https://my-app.com/shopping
+
+![alt text](image-6.png)
+
+#### Sub-domain
+https://analytic/my-app.com
+https://shopping/my-app.com
+
+![alt text](image-7.png)
+
+### TLS Certyfocate (https)
+
+Do spec należ wstawić sekcje tls i utworzyć secret w którym kontent będzie zawierał tls.cert i tls.key, a type jest specyficznym kodem tls, namespace musi być takie same jak w ingres komponent. innymi słowy mówiąć, certyfilat wydawany jest na nazwę domeny (nie na adres IP)
+
+![alt text](image-9.png)
+
+![alt text](image-10.png)
