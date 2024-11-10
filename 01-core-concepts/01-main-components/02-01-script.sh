@@ -15,7 +15,9 @@ kubectl create service nodeport nginx-run --namespace www --tcp 8080:80 --node-p
 # nie dizała z nodePort, nalezy wedytowac plik i dodac ręcznie
 # LB - należy go utowrzyć ręcznie dla EC2, dla EKS towrzony jest automatycznie
 # każdy service w klastrze musi mieć odręny LB
-kubectl create service loadbalancer nginx-run --namespace www --tcp 8080:80 --dry-run=client -o yaml > $service_lb_yaml
+kubectl create service loadbalancer nginx-run  \
+    --tcp=8080:80 --namespace=www \
+    --dry-run=client -o yaml > $service_lb_yaml
 
 kubectl create deployment nginx-run --image=nginx:1.24 --namespace $namespace --port=80 --replicas=2 --dry-run=client -o yaml > $deployment_yaml
 

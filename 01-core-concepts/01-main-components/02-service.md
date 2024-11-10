@@ -41,9 +41,13 @@ Tworząc taką replikę muszę zdefiniować blueprint dla podów, w której wska
 
 ## Cluster IP - internal service
 
-Tworzenie svc z lini poleceń
+![clusterIP](cllusterIP.png)
+
+Tworzenie svc:ClusterIP z lini poleceń
 ```bash
-kubectl create service clusterip nginx-run --namespace $namespace --tcp 8080:80 --dry-run=client -o yaml > $service_cip.yaml
+kubectl create service clusterip nginx-run \
+--namespace www --tcp 8080:80 \
+--dry-run=client -o yaml > $service_cip.yaml
 ```
 pod jest dostepny przes inne pody w dany klastrze
 
@@ -71,10 +75,15 @@ status:
 
 
 ## NodePort - external service
+Dedykowany port na nodzie, dostępny dla danego servisu z zakresu 30000 - 32767
 
-Tworzenie svc z lini poleceń
+![alt text](image.png)
+
+Tworzenie svc:NodePort z lini poleceń
 ```bash
-kubectl create service nodeport nginx-run --namespace www --tcp 8080:80 --node-port=30001  --dry-run=client -o yaml > $service_np.yaml
+kubectl create service nodeport nginx-run \
+--namespace www --tcp 8080:80 --node-port=30001 \
+--dry-run=client -o yaml > $service_np.yaml
 ```
 
 Wystawia na zewnątrz usługę
@@ -111,10 +120,21 @@ status:
 
 ## LoadBallancer
 
-Teoretycznie po za typem nie różni się niczym innym, ale w przypadku LB nadawany jest publiczny adres ip dla każdego SVC.
+Teoretycznie po za typem nie różni się niczym innym od NodePort, ale w przypadku LB nadawany jest publiczny adres ip dla każdego SVC.
 LB dziali ruch pomiędzy nody, na których deployment uruchomił pody.
+LB znajduje się po za klastrem k8s
 
-![lb](../01-main-components/lb.png)
+![alt text](image-2.png)
+
+Tworzeniud svc:LoaBallancer z lini poleceń
+```bash
+kubectl create service loadbalancer nginx-run  \
+--namespace=www --tcp=8080:80  \
+--dry-run=client -o yaml > $service_lb_yaml
+```
+Następne należy edytować plik ```$service_lb_yaml``` i dodac ```nodePort: 30000``` w ```.spec.ports[].```
+
+![alt text](image-1.png)
 
 ```yaml
 apiVersion: v1
@@ -138,3 +158,6 @@ spec:
 status:
   loadBalancer: {}
 ```
+
+Jeśli utworzysz klastek k8s w swojej serwerowni, to ty jesteś odpowiedzialny za utworzenie LB (polecam metalLB). Jaśli klaster taki zostanie utworzony EKS, AKS, GKE; to usługodawca odpowiada za tworzenie LB (LB tworzony jest altomatycznie).
+Liczba LB jest limitowana.
