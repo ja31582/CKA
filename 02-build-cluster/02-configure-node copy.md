@@ -24,10 +24,12 @@ k8s-worker-SG
 
 2. utwórz nody mastera oraz workera (pamiętaj o minimalnych wymaganiach nodow klastra k8s).
 
+```
 ---Master
 1x t3.medium
 ---Worker
 2x t3.medium
+```
 
 3. wyłacz swap (dotyczy mastera i workera)
 

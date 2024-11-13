@@ -102,3 +102,10 @@ helm install ingress-nginx ingress-nginx/ingress-nginx
 ![alt text](image-12.png)
 ![alt text](image-11.png)
 ![alt text](image-13.png)
+
+Utwóż ingress yaml za pomoca imperative commend
+```
+kubectl create ingress my-app-ingress \
+--rule=host/path=service:port --dry-run=client -o yaml > my-app-ingress.yaml
+```
+konfigurację ingress 
