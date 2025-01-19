@@ -39,6 +39,14 @@ Mając na uwadze dokumentacjie kuberentes dotyczącea minuimalnych wymagań nod�
 
 ![cluster-install](../02-build-cluster/cluster.png)
 
+Elementy jakeie należy zainstalować na każdym nodie
+![alt text](image-2.png)
+
+Kubelet działa na każdym nodzie (controlplain i worker nodzie) i rozmawia z container-runtime, aby "zaplanować kontynery" :)
+container-runtime jest osobny dla kazdego kontenera wiec kubernetes nie chaiał wprowadzać chaosu w swoje rozwiązanie i wprowadzić jeden głóny zwany Container Runtime Interface.
+Container Runtime Interface CRI jest zestawem ról które definiuja jaka technologia container-runtime ma zostać wdrożona i i w jaki sposób ma być wdorożona.
+![alt text](image-1.png)
+
 kubelet przegląda katalog na nodzie na którym jest uruchomiony
 
 ```bash
@@ -49,7 +57,7 @@ w poszukiwaniu plików manifestu api/sched/c-m/etcd
 jeśli znajdzie plik w tej lokalizacji to znaczy że jest to **static pod** - master node
 
 Połaczenie pomiędyz komponentami k8s musi być bezpeiczne.
-Wszystkie komponenty musze posiadac certyfikat, dla tego na samym początku musisz wygenerować self-singe CA certyficate dla k8s (cluster root CA).
+Wszystkie komponenty muszą posiadac certyfikat, dla tego na samym początku musisz wygenerować self-singe CA certyficate dla k8s (cluster root CA).
 Certyfikaty zostaną one przypisane wszystkim kompnentom klastra.
 
 certyfikaty przechowywane sa w katakogu 
