@@ -11,15 +11,60 @@ description: >
 
 ![ing](../05-ingress/ing.png)
 
-Plik ingres może zostać stwożon z użyciem CL, ale wcześniej należy zainstalować ingress-controller, który umożliwi tworzenie plików i przekierowanie zapytń do wewnętrznych serwisów.
+zainstaluj menadżera pakietów k8s, którey ułatwi intalację nginx-ingress-controllera i nie tylko.
+
+#### Instalacja Helm
+URL: https://helm.sh/docs/intro/install/ (ubuntu)
+```sh
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+sudo apt-get install apt-transport-https --yes
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+```
+
+#### Instalacja Ingress Controller (nginx)
+URL: https://github.com/kubernetes/ingress-nginx
+URL: https://kubernetes.github.io/ingress-nginx/deploy/ 
+
+```sh
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+```
+
+#### Imperative commend (tworzenie ingress-role)
+Plik ingres może zostać stworzon z użyciem CLI, ale wcześniej należy zainstalować ingress-controller, który umożliwi tworzenie plików i przekierowanie zapytń do wewnętrznych serwisów.
 
 ```bash
 kubectl create ingress nginx-ingress \ 
---rule="my-app.com/*=nginx-service:8080" --namespace=www \ 
+--rule="elastic_load_ballancer/*=nginx-service:8080" --namespace=www \ 
 --dry-run=client -o yaml > www-ing.yaml
 ```
 
+Jeśli bedziesz miał problem z implementacja ingress związaniem z webhoook  :
+
+1. sprawdź webhook
+```
+kubectl get validatingwebhookconfiguration
+```
+2. tymczasowo wyłacz webhook
+```
+kubectl delete validatingwebhookconfiguration ingress-nginx-admission
+```
+1. zaimplementuj zasób ingess
+```
+k apply -f my-ingress.yaml
+```
+4. włacz webhook
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+```
+
 Ingress Controller pełni kluczową rolę, zarządzając ruchem zewnętrznym i kierując go do zasobów wewnątrz klastra na podstawie konfiguracji Ingress. Ingress Controller działa jako „brama” dla aplikacji i usług w klastrze, umożliwiając dostęp z zewnątrz poprzez domeny, reguły routingu, zabezpieczenia (TLS), oraz inne funkcje, które można skonfigurować na poziomie zasobu Ingress.
+
+Ingres wskazuje na servic, który z  kolei wslazuje na deployment (pod).
+Servisy dla na które wskazuje ingress musze być typu ClusterIP
 
 Ingress przekazuje zapytaia do ClusterIP. W takim razie wszystkie dane (nazwa serwisu i port) zawate w ClusterIP muszą się znaleźć w Ingress.
 
@@ -109,3 +154,27 @@ kubectl create ingress my-app-ingress \
 --rule=host/path=service:port --dry-run=client -o yaml > my-app-ingress.yaml
 ```
 konfigurację ingress 
+
+
+
+```
+- - = = Shemat przepływu ruchu = = - - 
+
+Klient (zapytanie HTTPS na `example.com`) 
+       ⬇
+Certyfikat SSL weryfikuje domenę (połączenie zabezpieczone)
+       ⬇
+DNS wskazuje adres endpointa
+       ⬇
+Endpoint (np. FQDN Load Balancera w AWS)
+       ⬇
+Load Balancer (AWS ELB/ALB)
+       ⬇
+Traefik (Ingress Controller w Kubernetes)
+       ⬇
+IngressRoute (reguły routingu w Traefik)
+       ⬇
+Service (wewnętrzny routing w Kubernetes)
+       ⬇
+Deployment → Pod (aplikacja)
+```
