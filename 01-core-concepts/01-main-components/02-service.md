@@ -88,9 +88,9 @@ kubectl create service nodeport nginx-run \
 
 Wystawia na zewnątrz usługę
 
-nodePort: 30001 - Port, na którym usługa będzie dostępna na węzłach klastra.
+nodePort: 30001 - Port, na którym usługa będzie dostępna na węzłach klastra, (port na nodzie).
 port: 8080 - Port, na którym usługa będzie dostępna wewnętrznie w klastrze.
-targetPort: 80 - Port, na który ruch będzie przekazywany. 
+targetPort: 80 - Port, na który ruch będzie przekazywany, (port na podzie). 
 
 
 ```yaml
@@ -121,8 +121,10 @@ status:
 ## LoadBallancer
 
 Teoretycznie po za typm nie różni się niczym innym od NodePort, ale w przypadku LB nadawany jest publiczny adres ip dla każdego SVC.
-LB dziali ruch pomiędzy nody, na których deployment uruchomił pody.
+LB dziali ruch pomiędzy nody, na których deployment uruchomił pody (replikasets).
 LB znajduje się po za klastrem k8s
+W przypadku EKS, lub innego rozwiązania serverless, load ballancer tworzony jest automatycznie dla każdego servisu.
+Gdy używasz klastra opartego o instanceje, to ty jesteś odpowiedzialny za utworzenia LB i przypisanie go do servisu.
 
 ![alt text](image-2.png)
 
@@ -162,6 +164,8 @@ status:
 Jeśli utworzysz klastek k8s w swojej serwerowni, to ty jesteś odpowiedzialny za utworzenie LB (polecam metalLB). Jaśli klaster taki zostanie utworzony EKS, AKS, GKE; to usługodawca odpowiada za tworzenie LB (LB tworzony jest altomatycznie).
 Liczba LB jest limitowana.
 
+Nawet jeśli nie utworzysz LB to aplikacja będzie dostępna tak samo jak w przypadku NodePort ```http://<nod_public_ip>:port```
+
 Wpisz pomendę poniżej, aby zweryfikować czmu twoja aplikacja nie ziała a anasępnie sprawdź jej dostępność z poziomu innego poda i z poziomu nowa używając polecenia ```kubectl exec```
 ```bash
 kubectl describe service -n namespace
@@ -186,3 +190,10 @@ Za każdym razem gdy tworzymy nowy:
 informacje o klastrze dns możesz sprawdzić na nodzie controlplain ``` cat /var/lib/kubelet/config.yaml```
 
 
+```/etc/kubernetes/manifests/``` jest specjalnym miejscem w systemie, w którym Kubernetes przechowuje pliki manifestów YAML
+- kube-apiserver.yaml: Definiuje konfigurację dla Kubernetes API Server. API Server zarządza komunikacją w klastrze i jest punktem wejściowym do API Kubernetes. Edytuj ten plik można w łatwt sposób już na utworzonym klastrze zminic CIDR dla servisów  (kubectl get svc)
+  ```- --service-cluster-ip-range=10.96.0.0/12``` - default 
+  aktuaizacja dotyczy tylko nowo utworzonych servisuó
+- kube-controller-manager.yaml: Definiuje konfigurację dla Controller Managera, który zarządza kontrolerami odpowiedzialnymi za utrzymanie stanu klastrów.
+- kube-scheduler.yaml: Konfiguracja dla Scheduler, który przydziela zasoby (np. pod) na odpowiednie węzły na podstawie dostępności i reguł.
+- etcd.yaml (jeśli etcd jest zarządzany lokalnie): Konfiguracja dla etcd, który przechowuje dane stanu klastrów Kubernetes.
