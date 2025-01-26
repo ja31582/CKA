@@ -11,7 +11,10 @@ description: >
 
 ![ing](../05-ingress/ing.png)
 
-zainstaluj menadżera pakietów k8s, którey ułatwi intalację nginx-ingress-controllera i nie tylko.
+
+Zainstaluj menadżera pakietów k8s, który ułatwi intalację nginx-ingress-controllera i nie tylko.
+
+ingress działa z LoadBallancerem, więc najpierw go skonfiguruj.
 
 #### Instalacja Helm
 URL: https://helm.sh/docs/intro/install/ (ubuntu)
@@ -59,6 +62,10 @@ k apply -f my-ingress.yaml
 4. włacz webhook
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+```
+5. spr ingress
+```
+k get ingress
 ```
 
 Ingress Controller pełni kluczową rolę, zarządzając ruchem zewnętrznym i kierując go do zasobów wewnątrz klastra na podstawie konfiguracji Ingress. Ingress Controller działa jako „brama” dla aplikacji i usług w klastrze, umożliwiając dostęp z zewnątrz poprzez domeny, reguły routingu, zabezpieczenia (TLS), oraz inne funkcje, które można skonfigurować na poziomie zasobu Ingress.
