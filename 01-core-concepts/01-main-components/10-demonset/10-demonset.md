@@ -13,4 +13,4 @@ DemonSet jest komponentem takim jak Deployment czy StatefulSet z tą róznicą, 
 
 Wdraża tylko jedną Replikę na Nod
 
-Nie trzeba definiować ilości replik w DemonSet, automatycznie skaluje w górę lub w dół w zależności od ilości nodów, gwarantuje jedna replikę dla każdego poda.
+Nie trzeba definiować ilości replik w DemonSet, automatycznie skaluje w górę lub w dół w zależności od ilości nodów, gwarantuje jedną replikę dla każdego poda.
