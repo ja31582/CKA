@@ -52,5 +52,8 @@ Kubernetes wykorzystuje webhooki do dynamicznej kontroli zdarzeń, np.:
 
 Przejdź do lokalizacji ```/etc/kubernetes/manifests/kube-apiserver.yaml```  sprawdź czy właczony jest tryb autoryzacji RBAC
 ```--authorization-mode=RBAC```
+```--enable-admission-plugins=NodeRestriction``` (włączone webhooki).
 
---enable-admission-plugins=NodeRestriction (włączone webhooki).
+Można tu zmieniać autoryzację, autentykację, certyfikaty, integrację z chmurą itp.
+Definiuje sposób działania kube-apiservera, który jest głównym interfejsem klastra.
+Każda zmiana wymaga restartu kubelet, który automatycznie uruchomi nową wersję Poda.
