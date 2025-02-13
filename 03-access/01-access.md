@@ -57,3 +57,11 @@ Przejdź do lokalizacji ```/etc/kubernetes/manifests/kube-apiserver.yaml```  spr
 Można tu zmieniać autoryzację, autentykację, certyfikaty, integrację z chmurą itp.
 Definiuje sposób działania kube-apiservera, który jest głównym interfejsem klastra.
 Każda zmiana wymaga restartu kubelet, który automatycznie uruchomi nową wersję Poda.
+
+
+### Certificates
+komponenty k8s i wszystkie zasoby rozmawiają ze sobą za pośrednictwem dns, wiec dla autoryzacji anego procesu, niezbedny jest cert.
+k8s certyikaty przechwwywuje w lokalizacji ```/etc/kubernetes/pki/```
+![alt text](image-4.png)
+kubeadm tworzy Certificate Authority (CA) dla klastra k8s jeden dla etce, drógi dla kubernetes, a wszyscy klienci mposiadają kopie CA i dla tego nie ma problemów z komunikacja w klastrze.
+![alt text](image-5.png)
