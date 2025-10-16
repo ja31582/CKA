@@ -14,9 +14,14 @@ Wielekontenerw wewntrz jednego poda, są to kontenery pomocnicze, na których wy
 
 jest to dobre rozwiązanie bo bo kontenery w tym samym podzie nie potrzebuja sieci/service, komunikują sie na lokalhoscie.
 
+To dodatkowy kontener w Podzie, który współdzieli wolumen z główną aplikacją.
+
+Jego zadanie: np. zbierać logi i przekazywać je gdzieś dalej
 
 
 ### Init container ###
 Działa tylko raz na początku, przy uruchomieniu poda. Główny kotener działa po zakończeniu procesu inicjowanego pzez "kontener pomocniczy"
 
 ![alt text](image.png)
+
+```emptyDir``` jest tymczasowy — jeśli Pod zostanie usunięty lub przeniesiony, dane znikają.
