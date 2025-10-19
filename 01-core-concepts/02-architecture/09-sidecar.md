@@ -78,3 +78,31 @@ spec:
 Podczas uruchamiania Poda, kubelet opóźnia uruchomienie kontenerów init, dopóki sieć i pamięć masowa nie będą gotowe. Następnie kubelet uruchamia kontenery init Poda w kolejności, w jakiej występują w specyfikacji Poda.
 
 Zmiany w specyfikacji kontenera init ograniczają się do pola obrazu kontenera. Bezpośrednia zmiana imagepola kontenera init nie powoduje ponownego uruchomienia Poda ani jego ponownego uruchomienials
+
+
+Jeśli zachodzi potrzeb udostępnienia informacji dla innych kontenerów w podzie, wykorzystaj zmienne środowiskowe ```printenv``` DOWNWARE API
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-envars-fieldref
+spec:
+  containers:
+    - name: test-container
+      image: registry.k8s.io/busybox:1.27.2
+      command: [ "sh", "-c"]
+      args:
+      - while true; do
+          echo -en '\n';
+          printenv MY_NODE_NAME;
+          sleep 10;
+        done;
+      env:
+        - name: MY_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+ restartPolicy: Never              
+```
+
