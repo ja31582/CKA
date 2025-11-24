@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cochise-deployment
+  labels:
+    app: cochise
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cochise
+  template:
+    metadata:
+      labels:
+        app: cochise
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: pv-cochise
+          mountPath: "/mnt/data/cochise"
+        
+      volumes:
+      - name: pv-cochise
+        persistentVolumeClaim:
+          claimName: pvc-cochise

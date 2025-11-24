@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-cochise
+  labels:
+    volume: cochise
+spec:
+  hostPath:
+    path: "/mnt/data/cochise"
+  capacity:
+    storage: 5Gi
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: ""
+
