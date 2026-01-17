@@ -116,6 +116,9 @@ Pozwala określić, że dany pod nie powinien zostać umieszczony na tym samym n
 - jest używana do izolacji / zwiększenia dostępności / rozproszenia obciążenia
 - topologyKey: kubernetes.io/hostname
 - oznacza: „nie na tym samym node”
+
+![alt text](image-5.png)
+
 ```yaml
 spec:
   affinity:
@@ -144,7 +147,7 @@ spec:
 
     Wymóg twardy ma termin powinowactwa jako obiekt elementu listy głównej. W przypadku twardej reguły powinowactwa wszystkie terminy powinowactwa i wszystkie wyrażenia muszą być spełnione, aby pod mógł zostać zaplanowany.
 
-
+![alt text](image-6.png)
 
 
 
