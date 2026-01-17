@@ -171,21 +171,24 @@ Wpisz pomendę poniżej, aby zweryfikować czmu twoja aplikacja nie ziała a ana
 kubectl describe service -n namespace
 ```
 ![alt text](image-3.png)
-Selector - dla deployment (pod) i service musi być taki sam, inaczej aplikacja nie będzie widziana na zewnątrz.
+`Selector` - dla deployment (pod) i service musi być taki sam, inaczej aplikacja nie będzie widziana na zewnątrz.
 type - są trzy typy (clusterip, loadballancer, nodePort)
 port - port na jakim działą apliakacj a NODzie
 targetPort - port na jakim działa aplikacja w PODzie
 endpoint - musi być ten sam na podzie co na servisie (insaczej servisr nie odnosie się do komunikacji z tym deploymentem)
 
-kubeproxy przechowue listeę wszystkich serviców i odpowiada za porelację połączenia pod-node. Zarządza servisami i endpointami
+`kube-proxy` przechowue listę wszystkich serviców i odpowiada za korelację połączenia pod-node. Zarządza serwisami i endpointami.<br>
+`kube-proxy`, to agent sieciowy uruchamiany na każdym nodzie, którego zadaniem jest implementacja abstrakcji Service na poziomie ruchu sieciowego (clusterIP, nodePort), realizuje routing i load balancing ruchu do Podów (osi - L4)
 
-przy ttoubleshoutingu sprawdź czy działąją wszystkie pody w ```kube-system``` a w szczególności coredns 
+`Ingress` odpowiada za ruting ruchu (osi - L7)
+
+przy toubleshoutingu sprawdź czy działąją wszystkie pody w `kube-system` a w szczególności `coredns`
 ```bash
 kubectl get po -A -l k8s-app=kube-dns
 ```
 Za każdym razem gdy tworzymy nowy:
 - svc w kubernetes, DNS service dopisuje do swojej tabeli nazwę servisu oraz jego ip
-- pod, kubelet informacje w podzie o adres servera dns (kube-dns) w plik ```/etc/resolve.comf```
+- pod, kubelet informacje w podzie o adres servera dns (kube-dns) w plik `/etc/resolve.comf`
 - service (svc), k8s udostępnia jego nazwę fqdn w postaci ![alt text](image-4.png)
 informacje o klastrze dns możesz sprawdzić na nodzie controlplain ``` cat /var/lib/kubelet/config.yaml```
 

@@ -8,13 +8,13 @@ etcd przchowuje informacje o tym jakie zasoby (pody) są na danym nodzie klastra
  używaj tylko przy statycznej nazwie nodów (inaczej pod nie uruchomi sie po restarcie noda - dynamiczne przydzielane nazw w eks).
 
 # nodeSelector
- `k label nodes k8s-worker1 type=cpu` pozwala nadać label na działającym organiźmie.
+ `k label nodes k8s-worker1 type=cpu` pozwala nadać label na działającym organiźmie. używany gdy nazwy nodówa przypisywane są dynamicznie
 
 ```bash
  nodeSelector:
      type: cpu
 ```     
-`nodeSelector` umożliwia przypisane poda, deploymentu do nodów zawierających odpowiedni label. możesz użyć kokretnego regionu lub AZ dla deploymentu poda.
+`nodeSelector` umożliwia przypisane poda, deploymentu do nodów zawierających odpowiedni label. możesz użyć kokretnego regionu lub AZ dla deploymentu poda. Innymi sowy jeśli node ma określony label tożsamy z selektorem poda, to poda to `schedulrer` uruchomi pod na tym kotnkretnym nodzie.
 
 # nodeAffinity
 `nodeAffinity` jest bardziej elastyczny dla tworzenia poda ale za to bardziej skomplikowany dla tworzenia manifestu.
@@ -41,3 +41,69 @@ nodeName
 nodeSelector
 nodeAffinity
 podeAffinity
+
+# taints and tolleration
+`taints` - oznaczenie noda jako nieodpowiedniego dla poda
+
+`tolerations` - oznaczenie poda jako odpowiedniego do uruchomienia na nodzie z `taintem`
+
+taints i tolerations współpracują ze sobą aby zapobiec uruchomieniu poda na nieodpowiednim nodzie.
+taints są dodawane do nodów
+```bash
+kubectl taint nodes k8s-worker1 key=value:NoSchedule
+```
+tolerations są dodawane do poda
+```bash
+tolerations:
+- key
+  operator: "Equal"
+  value: "value"
+  effect: "NoSchedule"
+```
+jeśli nod ma taint to pod bez odpowiedniej toleration nie zostanie na nim uruchomiony.
+# Pod Scheduling
+Pod Scheduling to proces przypisywania Podów do odpowiednich węzłów (Nodes) w klastrze Kubernetes. Scheduler analizuje dostępne zasoby i wymagania Podów, aby znaleźć najlepsze dopasowanie.
+Scheduler bierze pod uwagę różne czynniki, takie jak:
+- Zasoby węzłów (CPU, pamięć)
+
+|Mechanizm|Co robi|
+|---------|-------|
+tolerations| pozwala wejść na node z taintem
+nodeSelector| wymusza wybór noda
+nodeAffinity| precyzyjny wybór noda
+
+manifest (toleration + nodeSelector)
+```sh
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-master
+spec:
+  tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+    effect: "NoSchedule"
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: ""
+  containers:
+  - name: nginx
+    image: nginx
+```
+alternatywa (lepsza): nodeAffinity
+```sh
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+```
+
+# `scheduler` unika `tait`, jeśli nie musi
+
+za ustawienie taint na nodzie odpowiada kubeadm
+
+ 
+
+
