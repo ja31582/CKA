@@ -32,3 +32,8 @@ kubectl get secret -n <namespace> <secret> -o jsonpath='{.data}' | jq -r 'to_ent
 Dane secretu są łatwe do zdekodowania, dla tego hasła powinny być przechowywanie w zewnętrznym menadżerze kluczy (KMS, Vault).
 
 Sam secret ma być zdefiniowany w tym samym namespace co aplikacja.
+
+![alt text](image.png)
+secret and coonfig map są przeznaczone do przechowywania poświadczeń w kubernetes
+secret jest dla dnych wrrażliwych (hasła)
+config map dla danych regularnych (db url,port)
