@@ -100,9 +100,53 @@ affinity:
           operator: Exists
 ```
 
-# `scheduler` unika `tait`, jeśli nie musi
+### `scheduler` unika `tait`, jeśli nie musi
 
 za ustawienie taint na nodzie odpowiada kubeadm
+
+# Inter-Pod Anti-Affinity - anytaffinity miedy podami
+NIE uwzględnia rzeczywistego (runtime) zużycia CPU / Memory / Network bandwidth.
+
+Scheduler podejmuje decyzje wyłącznie na podstawie deklaratywnych reguł (labels, affinity/anti-affinity, taints/tolerations) oraz resources.requests, a nie na podstawie faktycznego obciążenia węzłów.
+
+Pozwala określić, że dany pod nie powinien zostać umieszczony na tym samym nodzie (lub w tej samej domenie topologicznej) co inny pod spełniający określone kryteria labelSelector (matchLabels).
+
+- służy do unikania umieszczania podów na tym samym node
+- bazuje na labelach podów
+- jest używana do izolacji / zwiększenia dostępności / rozproszenia obciążenia
+- topologyKey: kubernetes.io/hostname
+- oznacza: „nie na tym samym node”
+```yaml
+spec:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: network-usage
+            operator: In
+            values:
+            - high
+        topologyKey: kubernetes.io/hostname
+  containers:
+  - name: network-heavy-app
+    image: registry.k8s.io/pause:2.0
+
+```
+---
+`requiredDuringSchedulingIgnoredDuringExecution` – oznacza, że warunki muszą być spełnione, aby pod został zaplanowany (wymóg twardy).
+
+`preferredDuringSchedulingIgnoredDuringExecution` – jeśli warunek może zostać spełniony, zostanie spełniony. Jeśli jednak nie, zostanie zignorowany (wymóg miękki).
+
+`podAffinityTerm` – termin powinowactwa podu określa, które pody wybieramy za pomocą selektora etykiet i który klucz topologii węzła wybieramy jako cel.
+
+    Wymóg miękki ma podAffinityTerm jako oddzielną właściwość z dodatkowym parametrem wagi, który określa, który termin jest ważniejszy.
+
+    Wymóg twardy ma termin powinowactwa jako obiekt elementu listy głównej. W przypadku twardej reguły powinowactwa wszystkie terminy powinowactwa i wszystkie wyrażenia muszą być spełnione, aby pod mógł zostać zaplanowany.
+
+
+
+
 
  
 
