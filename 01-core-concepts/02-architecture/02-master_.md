@@ -50,3 +50,7 @@ Najmniejszy klaster powinien zawierać przynajmniej 2 master nody (replikacja dl
 
 Master node nie potrzebuje tak duzych zasobów CPU, RAM, Storage jak worker node. Master zajmuje się procesami kontrolnymi, jest mniej "zasobożerny" 
 Worker node musu zapewnić odpowiednią wydajność dla działających podów.
+
+Wszystkie dane (deployment/pod/service/configMap/secret) przechowywane są w ETCD, co znaczy że jeżeli etcd  zostanie uszkodzony, to staracimy dane klastra, brak informacji o cluster state.
+Dlatego zaleca się wykonywanie regularnych kopii zapasowych etcd oraz replikację danych etcd na wiele węzłów w klastrze, aby zapewnić wysoką dostępność i odporność na awarie (kilka master nodów).
+Dane etcd zapisywane są na storage node nie na persistant bolume (zewnętrznym storage)

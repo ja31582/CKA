@@ -179,3 +179,20 @@ ReplicaSet „adoptuje” Pody
 - nie mają ownerReferences
 - albo mają owner, który już nie istnieje
 Jeżeli taki Pod istnieje - ReplicaSet może go adoptować.
+
+Jeśli chcesz uniknąć adopcji istniejących Podów, upewnij się, że selektor ReplicaSet jest unikalny i nie pasuje do żadnych istniejących Podów w klastrze.
+
+| Aspekt               | Horizontal Autoscaler (HPA)                                 | Vertical Autoscaler (VPA)                                                                                |
+|---|---|---|
+| **Zasada działania** | Dodaje lub usuwa repliki podów                              | Zmienia zasoby pojedynczego poda (CPU, pamięć)                                                           |
+| **Skalowanie**       | Poziome (więcej instancji)                                  | Pionowe (więcej zasobów na instancję)                                                                    |
+| **Przykład**         | Aplikacja webowa z rosnącym ruchem – dodawanie nowych podów | Aplikacja bazodanowa z dużym zapotrzebowaniem na pamięć – zwiększanie pamięci i CPU w istniejącym podzie |
+| **Zalety**           | Łatwe skalowanie w poziomie, lepsza dostępność              | Optymalizacja wykorzystania zasobów, brak konieczności dodawania nowych instancji                        |
+| **Wady**             | Może zwiększać koszty poprzez dodawanie wielu podów         | Może wymagać restartu poda, mniej elastyczne w przypadku bardzo dynamicznego ruchu                       |
+
+
+Horizontal Autoscaler (HPA):
+- Aplikacja webowa: Gdy ruch wzrasta, HPA automatycznie dodaje więcej podów, aby rozłożyć obciążenie.
+
+Vertical Autoscaler (VPA):
+- Baza danych: Gdy zapotrzebowanie na pamięć lub CPU rośnie, VPA zwiększa zasoby istniejącego poda, zamiast dodawać nowe instancje.
