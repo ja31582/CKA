@@ -54,3 +54,25 @@ Worker node musu zapewnić odpowiednią wydajność dla działających podów.
 Wszystkie dane (deployment/pod/service/configMap/secret) przechowywane są w ETCD, co znaczy że jeżeli etcd  zostanie uszkodzony, to staracimy dane klastra, brak informacji o cluster state.
 Dlatego zaleca się wykonywanie regularnych kopii zapasowych etcd oraz replikację danych etcd na wiele węzłów w klastrze, aby zapewnić wysoką dostępność i odporność na awarie (kilka master nodów).
 Dane etcd zapisywane są na storage node nie na persistant bolume (zewnętrznym storage)
+
+etcd backup
+```yaml
+ETCDCTL_API=3 etcdctl snapshot save /backup/etcd-$(date +%Y-%m-%d-%H%M).db \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key
+```
+etcd restore
+
+1. restore db
+```yaml
+export ETCDCTL_API=3
+
+etcdctl snapshot restore /backup/etcd-2026-01-25-1412.db --data-dir /var/lib/etcd-backup
+```
+2. zmień ścieżkę `spec.containers.securityContext.hostPath.patch` dla nowej db w `/etc/kubernetes/manifests/etcd.yaml`
+
+
+
+
