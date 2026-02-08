@@ -141,7 +141,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: jenkins
+  name: jenkins-rolebinding
 subjects:
 - kind: ServiceAccount
   name: jenkins
@@ -152,12 +152,39 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ```
-wygeneruj token dla jenkins
-`kubectl create token jenkins -n cicd   `
 
-wygenerowany token możę być teraz użty w jenkins
+
+aby powiązać wszystkie obiekry, należy jesczcze utworzyć secret
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cluster-access-secret
+  namespace: cicd
+  annotations:
+    kubernetes.io/service-account.name: jenkins # This annotation is required to link the secret to the service account
+type: kubernetes.io/service-account-token
+```
+sprawdź, czy wszystko zostalo powiąane i token został wygenerowany
+`k describe sa -n cluster-access serviceaccount`
+
+wyśwwitl token, skopiuj go (jest zakodowany)
+`k get secrets -n cluster-access cluster-access-secret -o yaml`
+
+w jankis musisz podać zdekowdowany token
+`k get secret cluster-access-secret -n cluster-access -o jsonpath='{.data.token}'| base64 -d`
+
 
 clusterrole jest zasobem globalnym 
 `kubbectl get clusterrole`
-` k describe clusterroles.rbac.authorization.k8s.io jenkins-role`
+`k describe clusterroles.rbac.authorization.k8s.io jenkins-role`
 `kubectl get clusterrolebinding |grep   `
+
+przetestuj z poziomu `control-plane`
+`curl -X GET $SERVER/api --header "Authorization: Bearer $TOKEN" --cacert /etc/kubernetes/pki/ca.crt`
+![alt text](image-13.png)
+
+![alt text](image-14.png)
+
+![alt text](image-16.png)
