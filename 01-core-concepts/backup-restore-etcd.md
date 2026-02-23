@@ -1,0 +1,1 @@
+sprawdź rozdział `master node`
