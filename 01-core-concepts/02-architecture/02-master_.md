@@ -38,7 +38,7 @@ Jest pto dobrze rozwiazanie z puunktu widzenia bezpieczeństwa. Jest to pojedyń
    
    ![controler-menager](../02-architecture/img/controler-manager.png)
 
-ETCD - magazyn wartości kluczy, mózg klastra. przechowuje wszystkie zmiany w klastrze. Posiada komplet informacji o statusie nodów, ich zasobach oraz lokalizacji podow w nodach (blueprint). 
+ETCD - (key value store) magazyn wartości kluczy, mózg klastra. przechowuje wszystkie zmiany w klastrze. Posiada komplet informacji o statusie nodów, ich zasobach oraz lokalizacji podow w nodach (blueprint). Działa na porcie 2379
 
 Przechowuję aktualny status wszystkich komponentów klastra. Posiada informacja ile jest działających na chwilę obecną relik danego deploymenu.
 

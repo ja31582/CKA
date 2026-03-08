@@ -43,8 +43,8 @@ Elementy jakeie należy zainstalować na każdym nodie
 ![alt text](image-2.png)
 
 Kubelet działa na każdym nodzie (controlplain i worker nodzie) i rozmawia z container-runtime, aby "zaplanować kontynery" :)
-container-runtime jest osobny dla kazdego kontenera wiec kubernetes nie chaiał wprowadzać chaosu w swoje rozwiązanie i wprowadzić jeden głóny zwany Container Runtime Interface.
-Container Runtime Interface CRI jest zestawem ról które definiuja jaka technologia container-runtime ma zostać wdrożona i i w jaki sposób ma być wdorożona.
+container-runtime jest osobny dla kazdego kontenera wiec kubernetes nie chaiał wprowadzać chaosu w swoje rozwiązanie i wprowadzić jeden głóny zwany Container Runtime Interface CRI.
+Container Runtime Interface CRI jest zestawem ról, które definiują jaka technologia container-runtime ma zostać wdrożona i w jaki sposób ma być wdorożona (np. container-d, docker).
 ![alt text](image-1.png)
 
 kubelet przegląda katalog na nodzie na którym jest uruchomiony
